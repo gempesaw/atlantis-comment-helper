@@ -1,0 +1,16 @@
+{
+  "name": "github recent comments",
+  "version": "1.0.0",
+  "description": "make it easier to repeat recent comments",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*/pull/*",
+        "https://github.com/*/issues/*"
+      ],
+      "js": ["github-recent-comments.js"],
+      "css": ["github-recent-comments.css"]
+    }
+  ]
+}
