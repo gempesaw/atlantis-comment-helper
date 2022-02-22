@@ -4,25 +4,34 @@ const $ = (selector) => document.querySelectorAll(selector)[0];
 
 const recentCommentsDiv = document.createElement('div');
 recentCommentsDiv.setAttribute('class', 'extension-github-recent-comments');
-$('.js-new-comment-form').appendChild(recentCommentsDiv);
 
-const doTheThing = () =>  parseCommentsFromPage()
-  .forEach(addCommentToCollection);;
+const doTheThing = () => {
+  const commentsPlaced = $('.extension-github-recent-comments');
+  if (!commentsPlaced) {
+    const endOfCommentsDiv = $('.discussion-timeline-actions');
+    endOfCommentsDiv.parentElement.insertBefore(recentCommentsDiv, endOfCommentsDiv);
+  }
+
+  parseCommentsFromPage()
+    .forEach(addCommentToCollection);
+};
 
 const pullRequestCommentsParentDiv = $('.js-discussion');
 const parseCommentsFromPage = () => Array.from(
-  new Set(
-    pullRequestCommentsParentDiv
-      .innerText
-      .split("\n")
-      .filter((it) => it.match(/^atlantis (?:plan|apply)/))
+  Array.from(
+    new Set(
+      Array.from(
+        document.querySelectorAll('.js-timeline-item'))
+          .flatMap(it => it.innerText.match(/atlantis (plan|apply)(.*)?/g))
+          .filter(Boolean)
+    )
   )
 )
   .sort()
-  .filter(it => it)
+  .filter(Boolean)
   .filter((it) => it !== 'atlantis apply');
 
-const collectedComments = {};
+const collectedComments = { plan: asButton('plan') };
 const addCommentToCollection = (text) => {
   if (!collectedComments[text]) {
     collectedComments[text] = asButton(text);
@@ -30,22 +39,22 @@ const addCommentToCollection = (text) => {
   }
 };
 
-const updateRecentComments = (button) => {
-  const awoo = [...Array.from(recentCommentsDiv.getElementsByTagName('button')), button];
-  console.log(awoo);
-  awoo
-    .sort((a, b) => a.textContent.localeCompare(b.textContent))
-    .forEach(button => recentCommentsDiv.appendChild(button));
-};
+const updateRecentComments = (button) => [...Array.from(recentCommentsDiv.getElementsByTagName('button')), button]
+  .sort((a, b) => a.textContent.localeCompare(b.textContent))
+  .forEach(button => recentCommentsDiv.appendChild(button));
 
 const asButton = (text) => {
   const button = document.createElement('button');
-  button.innerText = text;
+  button.innerText = text?.replace(/atlantis /, '');
   button.setAttribute('class', 'btn-primary btn');
   button.setAttribute('data-atlantis-command', text);
   button.addEventListener('click', () => {
     const commentField = $('#new_comment_field');
     commentField.value = text;
+    commentField.value = text;
+
+    $('#issue-comment-box button.btn-primary[type=submit]').removeAttribute('disabled');
+    $('#issue-comment-box button.btn-primary[type=submit]').click();
   });
 
   return button;
