@@ -1,17 +1,27 @@
-# buildkite-new-build-branch-helper :honk:
+# atlantis-comment-helper :honk:
 
-cuz i don't wanna select my branch. big lazy. nor do I want to repeat
-my environment variables!
+if you use atlantis and github, you may find yourself typing the same thing over
+and over again, with some variations, but not too many variations. this gets
+laborious, especially if terraform is not your best friend and you need to do a
+lot of plan/apply cycles.
 
-0% affiliation with buildkite, or even anyone really. affiliation
-free. :honk:
+this chrome extension tries to regex for the atlantis commands on the current
+issue, and creates buttons that put the comment in for you. maybe later it'll
+have keyboard shortcuts.
 
 ![](assets/at-least-one-screenshot-or-video-is-required.png)
 
 ## usage
 
-install the [chrome extension][]. go to a buildkite page with a branch
-on it and click `New Build`. :amaze:
+install the [chrome extension][]. go to a Github issue with atlantis commands in
+it and scroll to the bottom. click a button.
+
+## manual installation
+
+1. clone the repo
+1. go to chrome://extensions/
+1. `load unpacked extension`
+1. pick the `extension` directory where you cloned this thing
 
 ## deployment
 
