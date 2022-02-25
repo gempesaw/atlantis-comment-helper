@@ -14,6 +14,8 @@ const doTheThing = () => {
 
   parseCommentsFromPage()
     .forEach(addCommentToCollection);
+
+  decorateAtlantisOutputSnippets();
 };
 
 const pullRequestCommentsParentDiv = $('.js-discussion');
@@ -29,23 +31,12 @@ const parseCommentsFromPage = () => Array.from(
 )
   .sort()
   .filter(Boolean)
-  .filter((it) => it !== 'atlantis apply');
+  .filter((it) => it !== 'atlantis apply')
+  .filter((it) => !(it.match(/re-plan/)));
 
-const collectedComments = { plan: asButton('plan') };
-const addCommentToCollection = (text) => {
-  if (!collectedComments[text]) {
-    collectedComments[text] = asButton(text);
-    updateRecentComments(asButton(text));
-  }
-};
-
-const updateRecentComments = (button) => [...Array.from(recentCommentsDiv.getElementsByTagName('button')), button]
-  .sort((a, b) => a.textContent.localeCompare(b.textContent))
-  .forEach(button => recentCommentsDiv.appendChild(button));
-
-const asButton = (text) => {
+const asButton = (text, innerText) => {
   const button = document.createElement('button');
-  button.innerText = text?.replace(/atlantis /, '');
+  button.innerText = innerText || text?.replace(/atlantis /, '');
   button.setAttribute('class', 'btn-primary btn');
   button.setAttribute('data-atlantis-command', text);
   button.addEventListener('click', () => {
@@ -60,4 +51,21 @@ const asButton = (text) => {
   return button;
 };
 
-setInterval(doTheThing, 500);
+const collectedComments = { plan: asButton('plan') };
+const addCommentToCollection = (text) => {
+  if (!collectedComments[text]) {
+    collectedComments[text] = asButton(text);
+    updateRecentComments(asButton(text));
+  }
+};
+
+const updateRecentComments = (newButton) => [...Array.from(recentCommentsDiv.getElementsByTagName('button')), newButton]
+  .sort((a, b) => a.textContent.localeCompare(b.textContent))
+  .forEach(button => recentCommentsDiv.appendChild(button));
+
+const decorateAtlantisOutputSnippets = () =>
+[...document.querySelectorAll('.edit-comment-hide ul[dir=auto] code:last-child')]
+  .filter(it => it.offsetParent && /atlantis /.test(it.outerText))
+  .forEach(it => it.replaceWith(asButton(it.innerText, it.innerText)));
+
+setInterval(doTheThing, 1000);

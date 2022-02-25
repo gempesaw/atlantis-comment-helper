@@ -1,7 +1,7 @@
 {
-  "name": "github recent comments",
+  "name": "atlantis comment helper",
   "version": "1.0.0",
-  "description": "make it easier to repeat recent comments",
+  "description": "make it easier to input a previous atlantis command multiple times",
   "manifest_version": 2,
   "content_scripts": [
     {
@@ -9,8 +9,8 @@
         "https://github.com/*/pull/*",
         "https://github.com/*/issues/*"
       ],
-      "js": ["github-recent-comments.js"],
-      "css": ["github-recent-comments.css"]
+      "js": ["atlantis-comment-helper.js"],
+      "css": ["atlantis-comment-helper.css"]
     }
   ]
 }
