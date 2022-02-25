@@ -1,13 +1,13 @@
 # atlantis-comment-helper :honk:
 
-if you use atlantis and github, you may find yourself typing the same thing over
-and over again, with some variations for project and target, but not too many
-variations. this gets laborious, especially if terraform isn't your bestie and
-you need to do a lot of plan/apply cycles.
+if you use atlantis to plan and apply your terraform in github, you may find
+yourself typing the same thing over and over again, with some variations for
+project and target, but not too many variations. this gets laborious, especially
+if terraform isn't your bestie and you need to do a lot of plan/apply cycles.
 
-this chrome extension regexes a Github pull request's contents for the Atlantis
-commands on the page, and creates buttons that type and submit comment in for
-you. maybe later it'll have keyboard shortcuts instead of requiring mouse
+this chrome extension regexes the content on a Github pull request page for the
+Atlantis commands, and just creates buttons that type and submit the comment in
+for you. maybe later it'll have keyboard shortcuts instead of requiring mouse
 movement.
 
 **N.B.**: you use this extension at your own risk; no guarantees of fitness for
