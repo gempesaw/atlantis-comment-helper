@@ -20,18 +20,17 @@ const doTheThing = () => {
 
 const pullRequestCommentsParentDiv = $('.js-discussion');
 const parseCommentsFromPage = () => Array.from(
-  Array.from(
-    new Set(
-      Array.from(
-        document.querySelectorAll('.js-timeline-item'))
-          .flatMap(it => it.innerText.match(/atlantis (plan|apply)(.*)?/g))
-          .filter(Boolean)
-    )
+  new Set(
+    [...document.querySelectorAll('.js-timeline-item')]
+      .flatMap(it => it.innerText.match(/atlantis (plan|apply)( .*)?/g))
+      .filter(Boolean)
   )
 )
   .sort()
   .filter(Boolean)
+// avoid accidentally applying everything
   .filter((it) => it !== 'atlantis apply')
+
   .filter((it) => !(it.match(/re-plan/)));
 
 const asButton = (text, innerText) => {
@@ -41,6 +40,7 @@ const asButton = (text, innerText) => {
   button.setAttribute('data-atlantis-command', text);
   button.addEventListener('click', () => {
     const commentField = $('#new_comment_field');
+    // do it twice cuz sometimes the page thinks we didn't type anything
     commentField.value = text;
     commentField.value = text;
 
@@ -68,4 +68,4 @@ const decorateAtlantisOutputSnippets = () =>
   .filter(it => it.offsetParent && /atlantis /.test(it.outerText))
   .forEach(it => it.replaceWith(asButton(it.innerText, it.innerText)));
 
-setInterval(doTheThing, 1000);
+setInterval(doTheThing, 500);
