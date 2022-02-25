@@ -15,12 +15,14 @@ any purpose. aka, i'm not responsible if it runs 100 plans or 20 applies in a
 row or whatever! i won't make it do that on purpose of course, but i'm a
 mediocre programmer at best, soooo!
 
-![](assets/at-least-one-screenshot-or-video-is-required.png)
+![](assets/screenshot1.png)
 
 ## usage
 
 install the [chrome extension][]. go to a Github issue with atlantis commands in
 it and scroll to the bottom. click a button.
+
+there's also a [firefox extension][].
 
 ## manual installation
 
@@ -41,4 +43,5 @@ upload the extension in the chrome developer dashboard
 
 MIT
 
-[chrome extension]: https://chrome.google.com/webstore/detail/buildkite-new-build-branc/fgecbpogdmgfgaoodjcbjbhacamojkee/
+[chrome extension]: https://chrome.google.com/webstore/detail/mlmkhgibkaadhgkbpkmcckbdpfofnldd
+[firefox extension]: https://addons.mozilla.org/en-US/firefox/addon/atlantis-comment-helper/
