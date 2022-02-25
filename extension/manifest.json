@@ -2,13 +2,10 @@
   "name": "atlantis comment helper",
   "version": "1.0.0",
   "description": "make it easier to input a previous atlantis command multiple times",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "content_scripts": [
     {
-      "matches": [
-        "https://github.com/*/pull/*",
-        "https://github.com/*/issues/*"
-      ],
+      "matches": ["https://github.com/*/pull/*"],
       "js": ["atlantis-comment-helper.js"],
       "css": ["atlantis-comment-helper.css"]
     }
